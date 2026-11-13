@@ -12,6 +12,7 @@ FIV/
 │   ├── f1tenth_gym_ros/  # Upstream Git submodule
 │   └── f1tenth_gym/      # Upstream Gym dependency submodule
 ├── docs/             # Architecture and team workflow
+│   └── hardware/     # Jetson, LiDAR, camera, motor and demo roadmap
 ├── ros_ws/           # Our ROS 2 colcon workspace
 │   └── src/          # FIV ROS 2 packages
 └── GitFlow.png
@@ -36,6 +37,11 @@ topic contracts, and multi-device ROS notes. See
 [the simulator setup guide](Simulation/README.md) before installing the
 upstream simulator. Camera topic expectations and recording instructions are
 in [the camera guide](docs/camera.md).
+The hardware migration sequence and Orin Nano runbook are in
+[docs/hardware/](docs/hardware/README.md); see the
+[deliverables plan](docs/hardware/deliverables.md) for the full checklists and
+[the generated PDF](docs/hardware/FIV_Hardware_Integration_Plan.pdf) for a
+shareable version.
 
 ## Getting started
 
