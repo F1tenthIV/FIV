@@ -9,6 +9,8 @@ The physical hardware bringup and Jetson deployment plan is in
 [the hardware guide](../docs/hardware/README.md).
 The UST-10LX driver configuration is in
 [`fiv_lidar_bringup`](src/fiv_lidar_bringup/README.md).
+The bounded manual `/manual/drive` command interface is in
+[`fiv_teleop`](src/fiv_teleop/README.md).
 
 ## Build
 

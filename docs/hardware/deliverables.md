@@ -38,7 +38,7 @@ successful simulator run to an autonomous hardware run.
    python3 -m pip install transforms3d -e Simulation/f1tenth_gym
    cd ros_ws
    colcon build --symlink-install --base-paths ../Simulation/f1tenth_gym_ros src
-   colcon test --packages-select fiv_gap_follow fiv_lidar_bringup
+   colcon test --packages-select fiv_gap_follow fiv_lidar_bringup fiv_teleop
    colcon test-result --verbose
    ```
 
@@ -127,9 +127,11 @@ motor power applied.
 4. Integrate exactly one actuator gateway that accepts bounded
    `AckermannDriveStamped`, reports state/diagnostics, and stops on stale
    commands or driver failure. Keep a physical E-stop independent of ROS.
-5. Ensure only the manual node is publishing actuator commands. Stop the
-   Follow-the-Gap node, check `/drive` publishers, then test on blocks with a
-   very low speed limit and physical E-stop at hand.
+5. Ensure only one command path is enabled. Stop the Follow-the-Gap node, run
+   `ros2 run fiv_teleop drive_guard`, and inspect `/drive` publishers. The
+   drive guard clamps speed to 0.25 m/s and steering to ±0.30 rad by default,
+   disables reverse, and sends zero speed if the manual command goes stale.
+   These software limits are not an E-stop.
 
 ### B2. Demonstrate manual control
 
@@ -139,9 +141,18 @@ motor power applied.
    Verify zero means stop, reverse is disabled unless deliberately enabled,
    steering signs match the vehicle, speed and steering are clamped, and
    timeout sends zero.
-3. For a topic-driven test, use the manual node's documented input topic and
-   inspect `/drive` before enabling motor output. Never publish to `/drive`
-   while another control node is active.
+3. Keep `fiv_teleop drive_guard` running and send test commands on
+   `/manual/drive` (not directly to `/drive`):
+
+   ```bash
+   ros2 topic pub --rate 10 /manual/drive \
+     ackermann_msgs/msg/AckermannDriveStamped \
+     "{drive: {speed: 0.10, steering_angle: 0.0}}"
+   ```
+
+   Stop the command publisher with Ctrl+C; verify that `/drive` goes to zero
+   after the timeout. Never publish to `/drive` while another control node is
+   active.
 4. With the car on the ground, use an open, closed course, a spotter, low
    speed/current limits, an immediate physical stop, and short runs. Verify
    straight-line motion and steering one direction at a time.

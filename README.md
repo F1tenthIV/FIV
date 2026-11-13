@@ -28,20 +28,20 @@ Implemented packages:
   `Feature-Camera`. It requires a camera driver and calibration; detector/model
   integration is a follow-up.
 
-Planned if the project needs them:
+Additional planned packages:
 
 - `fiv_bringup`: launch files and shared parameters.
 - `fiv_interfaces`: custom messages/services only when standard ROS messages
   are insufficient.
-- `fiv_teleop`: planned on `Algorithms` for bounded manual commands with a
-  command timeout.
+- `fiv_teleop`: bounded manual commands with a timeout, implemented on
+  `Algorithms`.
 
 See [the architecture guide](docs/architecture.md) for package boundaries,
 topic contracts, and multi-device ROS notes. See
 [the simulator setup guide](Simulation/README.md) before installing the
 upstream simulator. Camera topic expectations and recording instructions are
-in [the camera guide](docs/camera.md).
-The hardware migration sequence and Orin Nano runbook are in
+in [the camera guide](docs/camera.md). The hardware migration sequence and
+Orin Nano runbook are in
 [docs/hardware/](docs/hardware/README.md); see the
 [deliverables plan](docs/hardware/deliverables.md) for the full checklists and
 [the generated PDF](docs/hardware/FIV_Hardware_Integration_Plan.pdf) for a
