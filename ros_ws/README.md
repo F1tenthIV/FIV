@@ -7,6 +7,8 @@ The stereo camera launch and video recorder are documented in
 [the camera guide](../docs/camera.md).
 The physical hardware bringup and Jetson deployment plan is in
 [the hardware guide](../docs/hardware/README.md).
+The UST-10LX driver configuration is in
+[`fiv_lidar_bringup`](src/fiv_lidar_bringup/README.md).
 
 ## Build
 
