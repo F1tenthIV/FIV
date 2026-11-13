@@ -1,0 +1,31 @@
+services:
+  sim:
+    image: fiv-f1tenth-humble:local
+    build:
+      context: ..
+      dockerfile: Simulation/Dockerfile.humble
+    command: ["bash", "-lc", "tail -f /dev/null"]
+    environment:
+      DISPLAY: novnc:0.0
+      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-42}
+      ROS_LOCALHOST_ONLY: "0"
+    volumes:
+      - ./f1tenth_gym_ros:/sim_ws/src/f1tenth_gym_ros
+      - ../ros_ws/src:/sim_ws/src/fiv
+    depends_on:
+      - novnc
+    networks:
+      - x11
+
+  novnc:
+    image: theasp/novnc:latest
+    environment:
+      DISPLAY_WIDTH: "1728"
+      DISPLAY_HEIGHT: "972"
+    ports:
+      - "8080:8080"
+    networks:
+      - x11
+
+networks:
+  x11:

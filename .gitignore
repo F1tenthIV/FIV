@@ -1,0 +1,13 @@
+# ROS 2 / colcon build outputs
+ros_ws/build/
+ros_ws/install/
+ros_ws/log/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# OS noise
+.DS_Store
+Thumbs.db

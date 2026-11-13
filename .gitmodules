@@ -1,0 +1,6 @@
+[submodule "Simulation/f1tenth_gym_ros"]
+	path = Simulation/f1tenth_gym_ros
+	url = https://github.com/f1tenth/f1tenth_gym_ros.git
+[submodule "Simulation/f1tenth_gym"]
+	path = Simulation/f1tenth_gym
+	url = https://github.com/f1tenth/f1tenth_gym.git
