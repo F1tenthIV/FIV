@@ -28,6 +28,10 @@ types against the simulator's active configuration before wiring a node.
   nodes but should not contain algorithm logic.
 - **`fiv_gap_follow`** owns the Follow the Gap algorithm and its ROS node.
   Keep the scan-processing logic testable independently from ROS callbacks.
+- **`fiv_camera`** owns camera-specific launch and recording tools. A camera
+  driver publishes calibrated stereo topics; stereo processing produces
+  disparity/point-cloud data. A detector will consume images and publish
+  detections after we choose a model.
 - **`fiv_interfaces`** is for custom messages/services only when standard
   messages (such as `LaserScan` and `AckermannDriveStamped`) are insufficient.
 - **`fiv_teleop`** can provide manual control and test utilities; it must not
@@ -67,7 +71,7 @@ control.
 2. Implement and unit-test the Follow the Gap scan-to-command logic.
 3. Run the node against the simulator; verify it publishes a valid drive
    message and handles invalid/empty scans safely.
-4. Add bringup launch files and parameter configuration.
+4. Bring up calibrated stereo topics and record a short ROS bag/video sample.
 5. Test discovery and topic flow across two devices before attempting
    hardware runs.
 
@@ -79,3 +83,6 @@ control.
   Verify the image build and simulation before relying on it for a demo.
 - Target vehicle and sensor configuration, including scan field of view,
   drive limits, and emergency-stop behavior.
+- Stereo camera model, driver, synchronization/calibration, and object
+  detection model/weights. Until these are selected and tested, camera output
+  is for logging/experimentation and must not control `/drive`.

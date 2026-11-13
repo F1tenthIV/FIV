@@ -36,6 +36,68 @@ If FIV packages or their dependencies have changed, rebuild with
 launching. Stop the environment with
 `docker compose -f Simulation/compose.humble.yaml down`.
 
+## Alternative: run natively in WSL 2
+
+Use this route if Docker Desktop is unavailable. It assumes Ubuntu 22.04 in
+WSL 2 with ROS 2 Humble already installed and WSLg enabled for RViz:
+
+```bash
+sudo apt update
+sudo apt install -y python3-pip python3-rosdep python3-colcon-common-extensions
+source /opt/ros/humble/setup.bash
+if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then
+  sudo rosdep init
+fi
+rosdep update
+# Run from the repository root in WSL.
+rosdep install -i --from-paths Simulation/f1tenth_gym_ros ros_ws/src \
+  --rosdistro humble -y \
+  --skip-keys "ament_python python-transforms3d-pip"
+python3 -m pip install transforms3d -e Simulation/f1tenth_gym
+sudo mkdir -p /sim_ws/src
+if [ ! -e /sim_ws/src/f1tenth_gym_ros ]; then
+  sudo ln -s "$PWD/Simulation/f1tenth_gym_ros" /sim_ws/src/f1tenth_gym_ros
+fi
+cd ros_ws
+colcon build --symlink-install --base-paths ../Simulation/f1tenth_gym_ros src
+source install/setup.bash
+ros2 launch f1tenth_gym_ros gym_bridge_launch.py
+```
+
+The symlink supplies the absolute map path expected by the upstream simulator.
+In another WSL terminal, source ROS and `ros_ws/install/setup.bash` before
+running FIV nodes. This native sequence was validated with ROS 2 Humble/WSLg.
+
+## Run the basic driving algorithm
+
+Leave the simulator bridge running in its first terminal. Open a second WSL
+terminal at the repository root and start a shell in the same container:
+
+```bash
+docker compose -f Simulation/compose.humble.yaml exec sim bash
+source /opt/ros/humble/setup.bash
+source /sim_ws/install/setup.bash
+ros2 topic echo --once /scan
+ros2 run fiv_gap_follow gap_follow
+```
+
+In a third container shell, inspect the output:
+
+```bash
+docker compose -f Simulation/compose.humble.yaml exec sim bash
+source /opt/ros/humble/setup.bash
+source /sim_ws/install/setup.bash
+ros2 topic echo /drive
+```
+
+The node implements a basic Follow the Gap controller: it filters the forward
+laser scan, masks a safety bubble around nearby obstacles, picks the widest
+open gap, and slows down as the steering angle grows. It publishes zero speed
+when no usable gap is available or scans stop arriving. This is a learning
+baseline, not a race- or hardware-qualified safety controller. Unit tests for
+the ROS-independent scan logic are in
+`ros_ws/src/fiv_gap_follow/test/`.
+
 The Humble image is a FIV-maintained adaptation, not an upstream-supported
 configuration. Validate its build and launch before using it for a demo. The
 upstream native instructions document Foxy on Ubuntu 20.04, which is

@@ -14,8 +14,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tmux \
     && rm -rf /var/lib/apt/lists/*
 
-RUN rosdep init && rosdep update
-RUN python3 -m pip install --no-cache-dir transforms3d
+RUN if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then rosdep init; fi \
+    && rosdep update
+# Ubuntu's coverage 6.2 lacks the API required by the simulator's newer Numba.
+RUN python3 -m pip install --no-cache-dir "coverage>=7.6" transforms3d
 
 COPY Simulation/f1tenth_gym /tmp/f1tenth_gym
 RUN python3 -m pip install --no-cache-dir /tmp/f1tenth_gym \
@@ -27,6 +29,7 @@ COPY ros_ws/src /sim_ws/src/fiv
 
 RUN source /opt/ros/humble/setup.bash \
     && rosdep install -i --from-path src --rosdistro humble -y \
+        --skip-keys "ament_python python-transforms3d-pip" \
     && colcon build --symlink-install
 
 CMD ["bash"]

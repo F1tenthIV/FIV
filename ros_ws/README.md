@@ -13,9 +13,21 @@ from its combined workspace. The host `ros_ws/src` directory is mounted at
 ```bash
 cd /sim_ws
 source /opt/ros/humble/setup.bash
-rosdep install --from-paths src --ignore-src -r -y --rosdistro humble
+rosdep install --from-paths src --ignore-src -r -y --rosdistro humble \
+  --skip-keys "ament_python python-transforms3d-pip"
 colcon build --symlink-install
 source install/local_setup.bash
+```
+
+The simulator image installs `transforms3d` with pip and skips the upstream
+`python-transforms3d-pip` rosdep key (and the `ament_python` build-tool key);
+these keys are not resolvable in the current Humble rosdep database.
+
+Run the unit tests for the scan algorithm with:
+
+```bash
+colcon test --packages-select fiv_gap_follow
+colcon test-result --verbose
 ```
 
 Then run FIV nodes in another shell in the same container, sourcing

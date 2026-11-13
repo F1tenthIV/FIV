@@ -17,14 +17,19 @@ FIV/
 └── GitFlow.png
 ```
 
-Planned ROS packages (add these as the team implements them):
+Implemented packages:
+
+- `fiv_gap_follow`: implemented on `Feature-Simulation`; consumes a laser scan
+  and publishes a drive command.
+- `fiv_camera`: stereo processing and camera recording scaffold on
+  `Feature-Camera`. It requires a camera driver and calibration; detector/model
+  integration is a follow-up.
+
+Planned if the project needs them:
 
 - `fiv_bringup`: launch files and shared parameters.
-- `fiv_gap_follow`: Follow the Gap node; consumes a laser scan and publishes a
-  drive command.
-- `fiv_interfaces`: only if we need custom ROS messages or services. Prefer
-  standard ROS messages when they fit.
-- `fiv_teleop`: optional manual control and safety testing tools.
+- `fiv_interfaces`: custom messages/services only when standard ROS messages
+  are insufficient.
 
 See [the architecture guide](docs/architecture.md) for package boundaries,
 topic contracts, and multi-device ROS notes. See
@@ -47,6 +52,8 @@ upstream simulator.
    workspace commands, follow [Simulation/README.md](Simulation/README.md).
 4. Add FIV packages under `ros_ws/src/`, then build them in the running
    container as described in [ros_ws/README.md](ros_ws/README.md).
+5. To try the driving controller, run the Follow the Gap node after the
+   simulator bridge is publishing `/scan`; it sends commands on `/drive`.
 
 ## Team workflow
 
