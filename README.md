@@ -24,6 +24,8 @@ Implemented packages:
   and publishes a drive command.
 - `fiv_lidar_bringup`: UST-10LX Ethernet driver setup on
   `Lidar-Camera-System`, configured to publish real `/scan` messages.
+- `fiv_motor_control`: planned hardware gateway; implementation is blocked on
+  confirming the exact VESC, motor, steering, and power configuration.
 - `fiv_camera`: stereo processing and camera recording scaffold on
   `Feature-Camera`. It requires a camera driver and calibration; detector/model
   integration is a follow-up.

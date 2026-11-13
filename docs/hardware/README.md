@@ -148,6 +148,9 @@ those packages can be built in this ROS 2 Humble workspace; select a maintained
 ROS 2 driver or port and validate it with the exact VESC hardware/firmware
 before connecting motor outputs.
 
+See the [motor-control checklist](motor-control.md) and the
+[`fiv_motor_control` landing area](../../ros_ws/src/fiv_motor_control/README.md).
+
 ## Reference sources
 
 - [Hokuyo UST-10LX specifications](https://www.hokuyo-aut.jp/search/single.php?serial=167)

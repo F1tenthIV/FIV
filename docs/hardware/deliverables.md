@@ -15,7 +15,9 @@ successful simulator run to an autonomous hardware run.
    using NVIDIA's Orin Nano SD-card guide and Balena Etcher. Use at least a
    64 GB UHS-I card. Check/update firmware if NVIDIA's guide requires it.
 3. Boot Ubuntu, connect networking, update packages, and verify JetPack/L4T.
-   Install ROS 2 Humble, colcon, rosdep, and the project's ROS dependencies.
+   Install ROS 2 Humble using the
+   [official Ubuntu ARM64 instructions](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html),
+   then install colcon, rosdep, and project dependencies.
 4. Keep a native clone at `~/FIV`, not under a Windows-mounted path. Fetch the
    agreed branch and initialize the simulator submodules:
 
@@ -56,6 +58,14 @@ successful simulator run to an autonomous hardware run.
    for that algorithm to run.
 4. Do not copy the PC's `build/`, `install/`, or `log/` directories to the
    Jetson. Build ROS packages natively on each target architecture.
+
+The simulator can be built on the Orin for bench/performance experiments, but
+keep it disarmed and isolated from real hardware. The bridge and the physical
+LiDAR both use `/scan`; the simulator and motor gateway both use `/drive`.
+Running both in the same ROS domain without explicit remapping risks the
+algorithm consuming simulated data or a command going to the wrong system.
+For the first car demo, run simulation on the development PC and run the
+algorithm + real sensor + verified motor gateway on the Jetson.
 
 ### A3. Wire and bring up the Hokuyo UST-10LX
 

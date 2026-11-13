@@ -260,10 +260,10 @@ def main():
         PageBreak(),
     ]
 
-    for source in ('README.md', 'deliverables.md'):
+    for source in ('README.md', 'deliverables.md', 'motor-control.md'):
         content = (Path(__file__).parent / source).read_text(encoding='utf-8')
         story.extend(markdown_flowables(content, doc.width))
-        if source == 'README.md':
+        if source != 'motor-control.md':
             story.append(PageBreak())
 
     doc.build(story, onFirstPage=draw_footer, onLaterPages=draw_footer)

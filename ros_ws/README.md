@@ -11,6 +11,9 @@ The UST-10LX driver configuration is in
 [`fiv_lidar_bringup`](src/fiv_lidar_bringup/README.md).
 The bounded manual `/manual/drive` command interface is in
 [`fiv_teleop`](src/fiv_teleop/README.md).
+The VESC gateway landing area is
+[`fiv_motor_control`](src/fiv_motor_control/README.md); no hardware driver is
+enabled until its exact model and interface are verified.
 
 ## Build
 
