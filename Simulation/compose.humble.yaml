@@ -12,6 +12,7 @@ services:
     volumes:
       - ./f1tenth_gym_ros:/sim_ws/src/f1tenth_gym_ros
       - ../ros_ws/src:/sim_ws/src/fiv
+      - ../recordings:/recordings
     depends_on:
       - novnc
     networks:

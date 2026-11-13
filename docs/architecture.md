@@ -30,8 +30,10 @@ types against the simulator's active configuration before wiring a node.
   Keep the scan-processing logic testable independently from ROS callbacks.
 - **`fiv_camera`** owns camera-specific launch and recording tools. A camera
   driver publishes calibrated stereo topics; stereo processing produces
-  disparity/point-cloud data. A detector will consume images and publish
-  detections after we choose a model.
+  disparity/point-cloud data and synchronized images are recorded to video.
+  A detector will consume images and publish detections after we choose a
+  model. See [the camera guide](camera.md) for the topic contract and launch
+  steps.
 - **`fiv_interfaces`** is for custom messages/services only when standard
   messages (such as `LaserScan` and `AckermannDriveStamped`) are insufficient.
 - **`fiv_teleop`** can provide manual control and test utilities; it must not

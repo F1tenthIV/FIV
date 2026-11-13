@@ -34,7 +34,8 @@ Planned if the project needs them:
 See [the architecture guide](docs/architecture.md) for package boundaries,
 topic contracts, and multi-device ROS notes. See
 [the simulator setup guide](Simulation/README.md) before installing the
-upstream simulator.
+upstream simulator. Camera topic expectations and recording instructions are
+in [the camera guide](docs/camera.md).
 
 ## Getting started
 

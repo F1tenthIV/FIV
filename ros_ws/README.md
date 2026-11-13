@@ -3,6 +3,8 @@
 This is the colcon workspace for FIV-owned ROS 2 packages. Add each package
 under `src/`; the simulator is included separately as a Git submodule and is
 documented in [Simulation/README.md](../Simulation/README.md).
+The stereo camera launch and video recorder are documented in
+[the camera guide](../docs/camera.md).
 
 ## Build
 

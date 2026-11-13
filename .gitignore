@@ -3,6 +3,9 @@ ros_ws/build/
 ros_ws/install/
 ros_ws/log/
 
+# Captured video and ROS bags
+recordings/
+
 # Python
 __pycache__/
 *.py[cod]
