@@ -107,13 +107,12 @@ class DriveGuard(Node):
             self._publish(self._last_command)
             return
 
-        if not self._stop_sent:
-            self._publish(STOP)
-            self._stop_sent = True
-            if self._last_command_time is not None:
-                self.get_logger().warning(
-                    'Manual command timed out; publishing zero speed'
-                )
+        self._publish(STOP)
+        if not self._stop_sent and self._last_command_time is not None:
+            self.get_logger().warning(
+                'Manual command timed out; publishing zero speed'
+            )
+        self._stop_sent = True
 
 
 def main(args=None):
