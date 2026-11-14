@@ -128,7 +128,7 @@ frames. Make that a later milestone after collecting calibrated sensor data.
 - [Deliverable checklist and sequence](deliverables.md): Jetson setup, LiDAR,
   simulator, manual control, autonomy, and acceptance gates.
 - [Generated step-by-step PDF](FIV_Hardware_Integration_Plan.pdf): a shareable
-  runbook built from the hardware and deliverables guides.
+  runbook built from the hardware, deliverables, and motor-control guides.
 
 Regenerate the PDF after editing either source guide:
 
