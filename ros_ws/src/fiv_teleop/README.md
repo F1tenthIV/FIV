@@ -3,9 +3,9 @@
 `fiv_teleop` provides a small safety gate for manual Ackermann messages. It
 subscribes to `/manual/drive`, clamps speed to 0.25 m/s and steering to
 ±0.30 rad by default, disables reverse, and publishes to `/drive`. If manual
-commands stop for 0.5 seconds, it sends a zero-speed command. These software
-limits are not a physical emergency stop and do not replace the VESC's
-verified current/voltage limits.
+commands stop for 0.5 seconds, it repeatedly publishes zero-speed commands
+until fresh input arrives. These software limits are not a physical emergency
+stop and do not replace the VESC's verified current/voltage limits.
 
 ## Run
 

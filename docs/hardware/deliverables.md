@@ -24,7 +24,7 @@ successful simulator run to an autonomous hardware run.
    ```bash
    cd ~/FIV
    git fetch origin
-   git switch Lidar-Camera-System
+   git switch Motor-Control
    git pull --ff-only
    git submodule update --init --recursive
    ```

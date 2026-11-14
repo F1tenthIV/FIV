@@ -20,13 +20,16 @@ FIV/
 
 Implemented packages:
 
-- `fiv_gap_follow`: implemented on `Feature-Simulation`; consumes a laser scan
-  and publishes a drive command.
+- `fiv_gap_follow`: basic Follow the Gap controller on `Feature-Simulation`;
+  consumes `/scan` and publishes `/drive`.
 - `fiv_lidar_bringup`: UST-10LX Ethernet driver setup on
-  `Lidar-Camera-System`, configured to publish real `/scan` messages.
-- `fiv_motor_control`: planned hardware gateway; implementation is blocked on
-  confirming the exact VESC, motor, steering, and power configuration.
-- `fiv_camera`: stereo processing and camera recording scaffold on
+  `Lidar-Camera-System`; configure the sensor address before use.
+- `fiv_teleop`: bounded manual commands on `Algorithms`; clamps speed and
+  steering and repeatedly publishes zero while input is stale.
+- `fiv_motor_control`: landing area on `Motor-Control`. A hardware gateway is
+  not enabled until the exact VESC, motor, steering, and power configuration
+  are confirmed.
+- `fiv_camera`: stereo processing and synchronized video-recording scaffold on
   `Feature-Camera`. It requires a camera driver and calibration; detector/model
   integration is a follow-up.
 
@@ -35,8 +38,6 @@ Additional planned packages:
 - `fiv_bringup`: launch files and shared parameters.
 - `fiv_interfaces`: custom messages/services only when standard ROS messages
   are insufficient.
-- `fiv_teleop`: bounded manual commands with a timeout, implemented on
-  `Algorithms`.
 
 See [the architecture guide](docs/architecture.md) for package boundaries,
 topic contracts, and multi-device ROS notes. See
