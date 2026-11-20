@@ -27,9 +27,11 @@ WORKDIR /sim_ws
 COPY Simulation/f1tenth_gym_ros /sim_ws/src/f1tenth_gym_ros
 COPY ros_ws/src /sim_ws/src/fiv
 
-RUN source /opt/ros/humble/setup.bash \
+RUN apt-get update \
+    && source /opt/ros/humble/setup.bash \
     && rosdep install -i --from-path src --rosdistro humble -y \
         --skip-keys "ament_python python-transforms3d-pip" \
-    && colcon build --symlink-install
+    && colcon build --symlink-install \
+    && rm -rf /var/lib/apt/lists/*
 
 CMD ["bash"]
